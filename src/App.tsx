@@ -3,6 +3,7 @@ import "./App.css";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import { Routes, Route } from "react-router-dom";
+import Test from "./components/Test";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path={"/"} element={<SignUp />} />
         <Route path={"/user/:id"} element={<Home />} />
+        <Route path={"/test"} element={<Test />} />
       </Routes>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>

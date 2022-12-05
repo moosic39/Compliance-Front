@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import SetAlarm from "./setAlarm";
+import React, { useEffect, useState } from "react";
+
+import bip from "../assets/mixkit-melodical-flute-music-notification-2310.wav";
+import Notification from "./Notification";
+
+const sound = new Audio(bip);
 
 function Alarm() {
   function renderTime() {
@@ -8,26 +12,65 @@ function Alarm() {
     return `${hours}:${minutes}`;
   }
 
-  const [alarm, setAlarm] = useState("");
+  const [alarm, setAlarm] = useState<string>("");
+  const [isActive, setIsActive] = useState<boolean>(false);
+
+  // let openNotif: boolean;
+
+  function toggleAlarm() {
+    if (!isActive) {
+      startAlarm();
+    }
+    if (isActive) {
+      stopAlarm();
+    }
+  }
+
+  function startAlarm() {
+    console.log("start");
+    console.log("alarm", alarm);
+    setIsActive(true);
+  }
+
+  function stopAlarm() {
+    sound.pause();
+    setAlarm("");
+    console.log("stop");
+    setIsActive(false);
+    // openNotif = false;
+  }
 
   // Clock
-  setInterval(() => {
-    const currentTime = renderTime().toString();
-    if (alarm === currentTime) {
-      console.log("play sound & notification");
-    }
-  }, 1000);
+  useEffect(() => {
+    setInterval(async () => {
+      const currentTime = renderTime().toString();
+      // console.log("time", currentTime);
+      // console.log("alarm", alarm);
 
+      // Alarm
+      if (isActive) {
+        if (alarm === currentTime) {
+          await sound.play();
+          console.log("play sound & notification");
+          setIsActive(false);
+          // openNotif = true;
+        }
+      }
+    }, 1000);
+  }, []);
+
+  console.log(isActive);
   return (
     <div>
+      <Notification />
       <div>
-        <SetAlarm alarm={alarm} />
         <input
           type="time"
           className={"text-sky-500 font-extrabold text-7xl"}
           onChange={(e) => setAlarm(e.target.value)}
         />
       </div>
+      <button onClick={toggleAlarm}>{isActive ? "Stop" : "Start"}</button>
     </div>
   );
 }

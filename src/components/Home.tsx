@@ -3,9 +3,9 @@ import Alarm from "./Alarm";
 
 function Home() {
   const [medication, setMedication] = useState(String);
-  const [numb, setNumb] = useState(0);
+  const [count, setCount] = useState(1);
   const list: any[] = [];
-  for (let i = 1; i <= numb; i++) {
+  for (let i = 1; i <= count; i++) {
     list.push(Number(i));
   }
   // list = [1, 2, 3, 4, 5];
@@ -13,8 +13,8 @@ function Home() {
   console.log(list);
 
   // ----- MAP sur l'input -----
-  const element = list.map((e) => (
-    <div key={list} className={"w-full m-2 border border-blue-500"}>
+  const element = list.map((e: number, i) => (
+    <div key={e} className={"w-full m-2 border border-blue-500"}>
       <label htmlFor={`medication${e}`}>
         <input
           type="checkbox"
@@ -57,8 +57,9 @@ function Home() {
         <input
           type="number"
           onChange={(e) => {
-            setNumb(Number(e.target.value));
+            setCount(Number(e.target.value));
           }}
+          defaultValue={"1"}
           min={"1"}
           max={"10"}
           placeholder={"N"}
