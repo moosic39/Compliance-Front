@@ -2,8 +2,9 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import MuiAlert, { AlertProps } from "@mui/material/Alert/index";
 import { Slide } from "@mui/material";
+import { useEffect } from "react";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -34,12 +35,12 @@ export default function Notification(props: isNotifProps) {
 
     setOpen(false);
   };
-  // if (props.isNotif) {
-  //   setOpen(true);
-  // }
-  // if (!props.isNotif) {
-  //   setOpen(false);
-  // }
+  useEffect(() => {
+    if (props.isNotif) {
+      console.log("on est content?");
+      handleOpen();
+    }
+  }, [props.isNotif]);
 
   return (
     <Stack>
