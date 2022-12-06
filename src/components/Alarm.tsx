@@ -5,6 +5,10 @@ import Notification from "./Notification";
 
 const sound = new Audio(bip);
 
+interface isNotifProps {
+  isNotif: boolean;
+}
+
 function Alarm() {
   function renderTime() {
     const [date, time] = new Date().toLocaleString("fr-FR").split(" ");
@@ -14,8 +18,7 @@ function Alarm() {
 
   const [alarm, setAlarm] = useState<string>("");
   const [isActive, setIsActive] = useState<boolean>(false);
-
-  // let openNotif: boolean;
+  const [isNotif, setIsNotif] = useState<boolean>(false);
 
   function toggleAlarm() {
     if (!isActive) {
@@ -37,34 +40,39 @@ function Alarm() {
     setAlarm("");
     console.log("stop");
     setIsActive(false);
+    setIsNotif(false);
     // openNotif = false;
   }
 
   // Clock
   useEffect(() => {
-    setInterval(async () => {
-      const currentTime = renderTime().toString();
-      // console.log("time", currentTime);
-      // console.log("alarm", alarm);
+    console.log(isActive, alarm);
+    const hasAlarm = alarm !== "";
+    if (!hasAlarm || !isActive) {
+      return;
+    }
 
+    const idInterval = setInterval(async () => {
+      const currentTime = renderTime().toString();
+      console.log("miou?");
       // Alarm
-      if (isActive) {
-        if (alarm === currentTime) {
-          await sound.play();
-          console.log("play sound & notification");
-          setIsActive(false);
-          // openNotif = true;
-        }
+      if (alarm === currentTime) {
+        await sound.play();
+        console.log("play sound & notification");
+        setIsNotif(true);
+        // setIsActive(false);
       }
     }, 1000);
-  }, []);
 
-  console.log(isActive);
+    return () => clearInterval(idInterval);
+  }, [alarm, isActive]);
+
   return (
     <div>
-      <Notification />
+      <Notification isNotif={isNotif} />
       <div>
         <input
+          id={"time"}
           type="time"
           className={"text-sky-500 font-extrabold text-7xl"}
           onChange={(e) => setAlarm(e.target.value)}

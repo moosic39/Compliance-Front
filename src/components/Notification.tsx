@@ -12,8 +12,15 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function Notification() {
+interface isNotifProps {
+  isNotif: boolean;
+}
+
+export default function Notification(props: isNotifProps) {
   const [open, setOpen] = React.useState(false);
+
+  console.log("props", props.isNotif);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -27,17 +34,17 @@ export default function Notification() {
 
     setOpen(false);
   };
-
-  // if (openNotif) {
-  //   handleOpen();
-  // } else {
-  //   handleClose();
+  // if (props.isNotif) {
+  //   setOpen(true);
+  // }
+  // if (!props.isNotif) {
+  //   setOpen(false);
   // }
 
   return (
     <Stack>
       <Button variant="outlined" onClick={handleOpen}>
-        Open success snackbar
+        Open snackbar
       </Button>
       <Snackbar
         open={open}

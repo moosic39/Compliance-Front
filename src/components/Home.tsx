@@ -13,7 +13,7 @@ function Home() {
   console.log(list);
 
   // ----- MAP sur l'input -----
-  const element = list.map((e: number, i) => (
+  const element = list.map((e: number) => (
     <div key={e} className={"w-full m-2 border border-blue-500"}>
       <label htmlFor={`medication${e}`}>
         <input
@@ -48,11 +48,7 @@ function Home() {
         <button>Remove all</button>
       </div>
       <Alarm />
-      <div>
-        <input type="number" min={0} max={24} placeholder={"HH"} />
-        {":"}
-        <input type="number" min={0} max={59} placeholder={"MM"} />
-      </div>
+
       <div>
         <input
           type="number"
