@@ -69,7 +69,6 @@ function Alarm() {
 
   return (
     <div>
-      <Notification isNotif={isNotif} />
       <div>
         <input
           id={"time"}
@@ -79,6 +78,7 @@ function Alarm() {
         />
       </div>
       <button onClick={toggleAlarm}>{isActive ? "Stop" : "Start"}</button>
+      <Notification isNotif={isNotif} />
     </div>
   );
 }

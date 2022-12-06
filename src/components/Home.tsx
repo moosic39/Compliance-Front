@@ -8,6 +8,7 @@ function Home() {
   for (let i = 1; i <= count; i++) {
     list.push(Number(i));
   }
+
   // list = [1, 2, 3, 4, 5];
 
   console.log(list);
@@ -30,6 +31,17 @@ function Home() {
             setMedication(e.target.value);
           }}
         />
+        <button
+          onClick={() => {
+            if (e === list.length) {
+              setCount(count + 1);
+            } else {
+              setCount(count - 1);
+            }
+          }}
+        >
+          {e === list.length ? "+" : "-"}
+        </button>
       </label>
     </div>
   ));
@@ -43,10 +55,6 @@ function Home() {
     <div className={"container"}>
       {element}
 
-      <div>
-        <button>Set Alarm</button>
-        <button>Remove all</button>
-      </div>
       <Alarm />
 
       <div>

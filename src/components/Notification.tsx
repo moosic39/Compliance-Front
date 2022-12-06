@@ -40,6 +40,9 @@ export default function Notification(props: isNotifProps) {
       console.log("on est content?");
       handleOpen();
     }
+    if (!props.isNotif) {
+      handleClose();
+    }
   }, [props.isNotif]);
 
   return (
