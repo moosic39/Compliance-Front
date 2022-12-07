@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import bip from "../assets/mixkit-melodical-flute-music-notification-2310.wav";
 import Notification from "./Notification";
+import Button from "@mui/material/Button";
 
 const sound = new Audio(bip);
 
@@ -77,7 +78,9 @@ function Alarm() {
           onChange={(e) => setAlarm(e.target.value)}
         />
       </div>
-      <button onClick={toggleAlarm}>{isActive ? "Stop" : "Start"}</button>
+      <Button onClick={toggleAlarm} variant={"contained"}>
+        {isActive ? "Stop" : "Start"}
+      </Button>
       <Notification isNotif={isNotif} />
     </div>
   );

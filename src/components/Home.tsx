@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import Alarm from "./Alarm";
+import { Checkbox, IconButton } from "@mui/material";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
+import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import { red } from "@mui/material/colors";
 
 function Home() {
   const [medication, setMedication] = useState(String);
   const [count, setCount] = useState(1);
-  const list: any[] = [];
+  const list: number[] = [];
   for (let i = 1; i <= count; i++) {
     list.push(Number(i));
   }
@@ -17,12 +23,12 @@ function Home() {
   const element = list.map((e: number) => (
     <div key={e} className={"w-full m-2 border border-blue-500"}>
       <label htmlFor={`medication${e}`}>
-        <input
-          type="checkbox"
-          id={`medication${e}`}
-          className={"accent-sky-400 outline-sky-600"}
+        <Checkbox
+          icon={<RadioButtonUncheckedIcon />}
+          checkedIcon={<CheckCircleIcon />}
           onChange={fct}
-        />{" "}
+          id={`medication${e}`}
+        />
         <input
           type="text"
           placeholder={`Medication${e}`}
@@ -31,7 +37,27 @@ function Home() {
             setMedication(e.target.value);
           }}
         />
-        <button
+        {/* <button */}
+        {/*   onClick={() => { */}
+        {/*     if (e === list.length) { */}
+        {/*       setCount(count + 1); */}
+        {/*     } else { */}
+        {/*       setCount(count - 1); */}
+        {/*     } */}
+        {/*   }} */}
+        {/* > */}
+        {/*   {e === list.length ? ( */}
+        {/*     <IconButton> */}
+        {/*       <AddCircleRoundedIcon /> */}
+        {/*     </IconButton> */}
+        {/*   ) : ( */}
+        {/*     <IconButton> */}
+        {/*       <RemoveCircleRoundedIcon /> */}
+        {/*     </IconButton> */}
+        {/*   )} */}
+        {/* </button> */}
+
+        <IconButton
           onClick={() => {
             if (e === list.length) {
               setCount(count + 1);
@@ -40,8 +66,12 @@ function Home() {
             }
           }}
         >
-          {e === list.length ? "+" : "-"}
-        </button>
+          {e === list.length ? (
+            <AddCircleRoundedIcon color={"success"} />
+          ) : (
+            <RemoveCircleRoundedIcon color={"error"} />
+          )}
+        </IconButton>
       </label>
     </div>
   ));
@@ -58,17 +88,6 @@ function Home() {
       <Alarm />
 
       <div>
-        <input
-          type="number"
-          onChange={(e) => {
-            setCount(Number(e.target.value));
-          }}
-          defaultValue={"1"}
-          min={"1"}
-          max={"10"}
-          placeholder={"N"}
-        />
-
         <button>Weekly Report</button>
         <button>Ask M.D.</button>
       </div>
