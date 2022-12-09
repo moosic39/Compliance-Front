@@ -5,6 +5,8 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
+import Button from "@mui/material/Button";
+import * as events from "events";
 
 function Home() {
   // const [medication, setMedication] = useState(String);
@@ -20,7 +22,8 @@ function Home() {
   }
 
   const allMedicInit = allMedic.map((e) => ({ e: "" }));
-  const handleInputChange = (e: any) => {
+
+  const handleInputChange = (e: events) => {
     // const name = e.target.name
     // const value = e.target.value
     const { name, value } = e.target;
@@ -37,13 +40,16 @@ function Home() {
 
   // ----- MAP sur l'input -----
   const element = allMedic.map((e: string, i: number) => (
-    <div key={i + 1} className={"w-full m-2 border border-blue-500"}>
+    <div
+      key={i + 1}
+      className={"w-full m-2 rounded-2xl border border-blue-500"}
+    >
       <label htmlFor={e}>
         <Checkbox
           icon={<RadioButtonUncheckedIcon />}
           checkedIcon={<CheckCircleIcon />}
           onChange={() => {
-            console.log(e, Object.values(values)[i + 1]);
+            console.log(e, { ...values }[e]);
           }}
           id={e}
         />
@@ -51,61 +57,65 @@ function Home() {
           name={e}
           type="text"
           placeholder={`Medication${i + 1}`}
-          className={"text-center"}
+          className={"text-center rounded-full"}
           onChange={(e) => {
             handleInputChange(e);
           }}
         />
-        {/* PREVIOUS WORKING BUTTON */}
-        {/* <button */}
-        {/*   onClick={() => { */}
-        {/*     if (e === list.length) { */}
-        {/*       setCount(count + 1); */}
-        {/*     } else { */}
-        {/*       setCount(count - 1); */}
-        {/*     } */}
-        {/*   }} */}
-        {/* > */}
-        {/*   {e === list.length ? ( */}
-        {/*     <IconButton> */}
-        {/*       <AddCircleRoundedIcon /> */}
-        {/*     </IconButton> */}
-        {/*   ) : ( */}
-        {/*     <IconButton> */}
-        {/*       <RemoveCircleRoundedIcon /> */}
-        {/*     </IconButton> */}
-        {/*   )} */}
-        {/* </button> */}
-
-        <IconButton
-          onClick={() => {
-            if (i + 1 === list.length) {
-              setCount(count + 1);
-            } else {
-              setCount(count - 1);
-            }
-          }}
-        >
-          {i + 1 === list.length ? (
-            <AddCircleRoundedIcon color={"success"} />
-          ) : (
-            <RemoveCircleRoundedIcon color={"error"} />
-          )}
-        </IconButton>
       </label>
+      {/* PREVIOUS WORKING BUTTON */}
+      {/* <button */}
+      {/*   onClick={() => { */}
+      {/*     if (i + 1 === list.length) { */}
+      {/*       setCount(count + 1); */}
+      {/*     } else { */}
+      {/*       setCount(count - 1); */}
+      {/*     } */}
+      {/*   }} */}
+      {/* > */}
+      {/*   <IconButton> */}
+      {/*     {i + 1 === list.length ? ( */}
+      {/*       <AddCircleRoundedIcon /> */}
+      {/*     ) : ( */}
+      {/*       <RemoveCircleRoundedIcon /> */}
+      {/*     )} */}
+      {/*   </IconButton> */}
+      {/* </button> */}
+
+      <IconButton
+        onClick={() => {
+          if (i + 1 === list.length) {
+            setCount(count + 1);
+          } else {
+            setCount(count - 1);
+          }
+        }}
+      >
+        {i + 1 === list.length ? (
+          <AddCircleRoundedIcon color={"success"} />
+        ) : (
+          <RemoveCircleRoundedIcon color={"error"} />
+        )}
+      </IconButton>
     </div>
   ));
-
-  // --------------------------
-  function fct(event: any) {
-    console.log(values);
-  }
 
   return (
     <div className={"container"}>
       {element}
 
       <Alarm />
+      <Button
+        onClick={() => {
+          // send the list
+          delete values[0];
+          console.log({
+            ...values,
+          });
+        }}
+      >
+        SEND
+      </Button>
 
       <div>
         <button>Weekly Report</button>

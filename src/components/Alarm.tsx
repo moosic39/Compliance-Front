@@ -6,9 +6,9 @@ import Button from "@mui/material/Button";
 
 const sound = new Audio(bip);
 
-interface isNotifProps {
-  isNotif: boolean;
-}
+// interface isNotifProps {
+//   isNotif: boolean;
+// }
 
 function Alarm() {
   function renderTime() {
@@ -61,7 +61,6 @@ function Alarm() {
         await sound.play();
         console.log("play sound & notification");
         setIsNotif(true);
-        // setIsActive(false);
       }
     }, 1000);
 
