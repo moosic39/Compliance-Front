@@ -2,7 +2,10 @@ const PATH = "http://127.0.0.1:3000";
 
 function isAuth() {
   const token = ""; // TODO cookies
-  const headers = {
+  const headers: {
+    "Content-Type": string;
+    token?: string;
+  } = {
     "Content-Type": "application/json; charset=UTF-8",
     token: "",
   };
@@ -69,7 +72,7 @@ function isAuth() {
 //   return await promise.then(async (response) => await response.json());
 // }
 
-// -------------------- USER ----------------------------
+// -------------------- USERS ----------------------------
 
 export async function signin(username: string, password: string) {
   const promise = fetch(PATH + "/users/signin", {
@@ -98,4 +101,23 @@ export async function signup(
     }),
   });
   return await promise.then(async (response) => await response.json());
+}
+
+//  -------------------- LISTS ----------------------------
+export async function sendList({ ...lists }, username: string) {
+  const promise = fetch(`${PATH}/lists/${username}`, {
+    method: "POST",
+    headers: isAuth(),
+    body: JSON.stringify({ ...lists }),
+  });
+  return await promise.then(async (res) => await res.send());
+}
+
+export async function getAll(username: string) {
+  const promise = fetch(`${PATH}/lists/${username}`, {
+    method: "GET",
+    headers: isAuth(),
+  });
+
+  return await promise.then(async (res) => await res.json());
 }

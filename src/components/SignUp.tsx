@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { signup } from "../fetch";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,8 @@ function SignUp() {
     }
   }
 
+  const navigate = useNavigate();
+
   function onSubmitHandler(event: React.FormEvent) {
     event.preventDefault();
     isReadyToSubmit();
@@ -44,6 +47,9 @@ function SignUp() {
         }
         setIsPrompt(false);
         console.log(data);
+        setTimeout(() => {
+          navigate("/signin");
+        }, 1000);
       })
       .catch((err) => {
         console.error({ err });

@@ -47,9 +47,6 @@ export default function Notification(props: isNotifProps) {
 
   return (
     <Stack>
-      <Button variant="outlined" onClick={handleOpen}>
-        Open snackbar
-      </Button>
       <Snackbar
         open={open}
         anchorOrigin={{

@@ -10,7 +10,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Button from "@mui/material/Button";
 import { signin } from "../fetch";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Auth() {
   interface State {
@@ -51,7 +51,7 @@ function Auth() {
     console.log(values.username, values.password);
     signin(values.username, values.password)
       .then((data) => {
-        console.log("successfully signin", data);
+        console.log(data);
         if (data.username) {
           navigate(`/user/${data.username}`);
         }

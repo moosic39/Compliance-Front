@@ -9,14 +9,13 @@ const sound = new Audio(bip);
 // interface isNotifProps {
 //   isNotif: boolean;
 // }
+export function renderTime() {
+  const [date, time] = new Date().toLocaleString("fr-FR").split(" ");
+  const [hours, minutes, secondes] = time.split(":");
+  return `${hours}:${minutes}`;
+}
 
 function Alarm() {
-  function renderTime() {
-    const [date, time] = new Date().toLocaleString("fr-FR").split(" ");
-    const [hours, minutes, secondes] = time.split(":");
-    return `${hours}:${minutes}`;
-  }
-
   const [alarm, setAlarm] = useState<string>("");
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isNotif, setIsNotif] = useState<boolean>(false);
@@ -55,7 +54,6 @@ function Alarm() {
 
     const idInterval = setInterval(async () => {
       const currentTime = renderTime().toString();
-      console.log("miou?");
       // Alarm
       if (alarm === currentTime) {
         await sound.play();
