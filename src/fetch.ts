@@ -17,62 +17,6 @@ function isAuth(): HeadersInit | undefined {
 	return headers;
 }
 
-//
-// // -------------------- SITE ----------------------------
-//
-// export async function getDataFromSite(idSite) {
-//   const promise = fetch(PATH + "/site-info/" + idSite, {
-//     method: "GET",
-//     headers: isAuth(),
-//   });
-//   return await promise.then(async (response) => await response.json());
-// }
-//
-// export async function getDataFromAllSite() {
-//   const promise = fetch(PATH + "/site-info/", {
-//     headers: isAuth(),
-//   });
-//   return await promise.then(async (response) => await response.json());
-// }
-//
-// // -------------------- PRODUCT ----------------------------
-//
-// export async function getLineInfoFromSite(idSite) {
-//   const promise = fetch(PATH + "/site-line/" + idSite, {
-//     headers: isAuth(),
-//   });
-//   return await promise.then(async (response) => await response.json());
-// }
-//
-// export async function putLineInfoFromSite(productionRate, idLine, idSite) {
-//   const promise = fetch(PATH + "/site-line/" + idSite, {
-//     method: "PUT",
-//     headers: isAuth(),
-//     body: JSON.stringify({
-//       newProductionRate: productionRate,
-//       idLine,
-//     }),
-//   });
-//   return await promise.then(async (response) => await response.json());
-// }
-//
-// export async function getProductFromSite(idSite) {
-//   const promise = fetch(PATH + "/get-product-for-site/" + idSite);
-//   return await promise.then(async (response) => await response.json());
-// }
-//
-// export async function addNewLine(idSite, product) {
-//   const promise = fetch(PATH + "/new-production-line", {
-//     method: "POST",
-//     headers: isAuth(),
-//     body: JSON.stringify({
-//       idSite,
-//       product,
-//     }),
-//   });
-//   return await promise.then(async (response) => await response.json());
-// }
-
 // -------------------- USERS ----------------------------
 
 export async function signin(username: string, password: string) {
