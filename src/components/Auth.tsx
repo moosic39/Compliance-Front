@@ -63,7 +63,7 @@ function Auth() {
 	return (
 		<div>
 			<div>
-				<h1>Coucou</h1>
+				<h1>Hello</h1>
 			</div>
 			<form onSubmit={onSubmitHandler}>
 				<Box

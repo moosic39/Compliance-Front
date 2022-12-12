@@ -9,29 +9,34 @@ import NotFound from "./components/NotFound";
 import MrTea from "./components/MrTea";
 import NotAllowed from "./components/NotAllowed";
 import PrivateRoutes from "./components/PrivatesRoutes";
+import Settings from "./components/Settings";
+import Welcome from "./components/Welcome";
 
 function App() {
 	return (
 		<div className="App p-20 h-full rounded-xl w-full bg-gradient-to-t from-sky-50 to-sky-200">
 			<div className={"card"}>
-				<h1 className="text-3xl font-bold underline">Compliance</h1>
+				<h2 className="font-bold underline">Compliance</h2>
 			</div>
 
 			<Routes>
-				<Route path={"/"} />
+				<Route path={"/"} element={<Welcome />} />
 				<Route element={<PrivateRoutes />}>
 					<Route path={"/user/:id"} element={<Home />} />
 					<Route path={"/report/:id"} element={<Report />} />
+					<Route path={"/settings/:id"} element={<Settings />} />
 				</Route>
 				<Route path={"/signup"} element={<SignUp />} />
 				<Route path={"/signin"} element={<Auth />} />
 				<Route path={"/test"} element={<Test />} />
-				<Route path={"/users"} element={<MrTea />} />
+				{/* <Route path={"/users"} element={<MrTea />} /> */}
 				<Route path={"/403"} element={<NotAllowed />} />
 				<Route path={"/*"} element={<NotFound />} />
 			</Routes>
 			<div className="card"></div>
-			<p className="read-the-docs">Mickael CC</p>
+			<footer>
+				<p className="read-the-docs text-xs">© 2022 Mickael JEGAT</p>
+			</footer>
 		</div>
 	);
 }
