@@ -28,7 +28,7 @@ export async function signin(username: string, password: string) {
 			password,
 		}),
 	});
-	return await promise.then(async (response) => await response.json());
+	return await promise.then(async (res) => await res.json());
 }
 
 export async function signup(
@@ -45,7 +45,25 @@ export async function signup(
 			password,
 		}),
 	});
-	return await promise.then(async (response) => await response.json());
+	return await promise.then(async (res) => await res.json());
+}
+
+export async function getInfo(username: string) {
+	const promise = fetch(`${PATH}/users/settings/${username}`, {
+		method: "GET",
+		headers: isAuth(),
+	});
+
+	return await promise.then(async (res) => await res.json());
+}
+
+export async function putInfo({ ...infos }, username: string) {
+	const promise = fetch(`${PATH}/users/settings/${username}`, {
+		method: "PUT",
+		headers: isAuth(),
+		body: JSON.stringify({ ...infos }),
+	});
+	return await promise.then(async (res) => await res.json());
 }
 
 //  -------------------- LISTS ----------------------------
