@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import { getInfo } from "../fetch";
+import { getInfo, putInfo } from "../fetch.js";
 
 function Settings() {
 	// interface Tot {
@@ -23,9 +23,6 @@ function Settings() {
 		doctorEmail: "",
 	};
 
-	const allInput: string[] = Object.keys(tot);
-	const allInputInit = allInput.map((e: string) => "");
-
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
 
@@ -39,28 +36,30 @@ function Settings() {
 	React.useEffect(() => {
 		getInfo(username)
 			.then((infos) => {
-				console.log(infos);
-				setValues(infos);
+				setValues(infos[0]);
+				console.log(values);
 			})
 			.catch((err) => {
 				console.error({ err });
 			});
 	}, []);
 
+	const allInput: string[] = Object.keys(tot);
+	const allInputInit = allInput.map((e: string) => "");
 	const [values, setValues] = useState(allInputInit);
 	console.log(values);
 
-	const element = allInput.map((e, i) => (
+	const element = Object.entries(values).map((e, i) => (
 		<div key={i}>
-			<label htmlFor={e}>
-				{" "}
+			<label htmlFor={e[1]}>
 				<TextField
 					id="outlined-basic"
-					label={e}
+					label={e[0]}
 					variant="outlined"
 					onChange={(e) => {
 						handleInputChange(e);
 					}}
+					defaultValue={e[1]}
 					className={"center"}
 				/>
 			</label>
@@ -70,18 +69,30 @@ function Settings() {
 	return (
 		<div>
 			<h2>Settings</h2>
-
 			<Box
 				component="form"
 				sx={{
-					"& > :not(style)": { m: 1, width: "33ch" },
+					"& > :not(style)": {
+						m: 1,
+						width: "33ch",
+					},
 				}}
 				noValidate
 				autoComplete="off"
 			>
 				{element}
 			</Box>
-			<Button variant="contained" endIcon={<SaveIcon />}>
+			<Button
+				variant="contained"
+				onClick={() => {
+					putInfo({ ...values }, username)
+						.then((data) => {
+							console.log(data);
+						})
+						.catch((error) => console.error(error));
+				}}
+				endIcon={<SaveIcon />}
+			>
 				Save modifications
 			</Button>
 		</div>

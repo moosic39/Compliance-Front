@@ -26,7 +26,7 @@ module.exports = {
                 'allowExpressions': true,
             },
         ],
-        'import/no-unresolved': 1,
+        'import/no-unresolved': 0,
         'react/react-in-jsx-scope': 0,
         'react/prop-types': 0,
     },
