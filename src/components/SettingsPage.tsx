@@ -4,8 +4,10 @@ import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { getInfo, putInfo, deleteUser } from "../fetch.js";
 import { useNavigate } from "react-router-dom";
+import ReturnButton from "./ReturnButton";
+import SettingsButton from "./SettingsButton";
 
-function Settings() {
+function SettingsPage() {
   interface InputProps {
     firstname?: string;
     lastname?: string;
@@ -64,6 +66,7 @@ function Settings() {
   const [init, setInit] = useState<Init>(dbInit);
   const [sure, setSure] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   delete init._id;
   delete init.__v;
@@ -104,12 +107,17 @@ function Settings() {
   ));
 
   function sendData() {
-    putInfo(values, username)
-      .then((data) => {
-        console.log(data);
-        navigate(0);
-      })
-      .catch((err) => console.log({ err }));
+    if (values.password === "") {
+      setIsReady(true);
+    } else {
+      setIsReady(false);
+      putInfo(values, username)
+        .then((data) => {
+          console.log(data);
+          navigate(0);
+        })
+        .catch((err) => console.log({ err }));
+    }
   }
 
   function del() {
@@ -128,34 +136,45 @@ function Settings() {
 
   return (
     <div>
+      <ReturnButton />
+
       <h2>Settings</h2>
-      <Box
-        component="form"
-        sx={{
-          "& > :not(style)": {
-            m: 1,
-            width: "33ch",
-          },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        {dbElement}
-      </Box>
-      <br />
-      <Box
-        component="form"
-        sx={{
-          "& > :not(style)": {
-            m: 1,
-            width: "33ch",
-          },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        {element}
-      </Box>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": {
+                    m: 1,
+                    width: "25ch",
+                  },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                {dbElement}
+              </Box>
+            </td>
+            <td>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": {
+                    m: 1,
+                    width: "25ch",
+                  },
+                }}
+                noValidate
+                autoComplete="off"
+              >
+                {element}
+              </Box>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Button
         variant="contained"
         onClick={sendData}
@@ -175,6 +194,7 @@ function Settings() {
       >
         Delete All
       </Button>
+      <div className={!isReady ? "hidden" : ""}>Enter your password</div>
       <div className={sure ? "" : "hidden"}>
         Are you sure? <button onClick={del}>Yes</button>
         <button
@@ -186,11 +206,16 @@ function Settings() {
         </button>
       </div>
       <div className={sure ? "" : "hidden"}>
-        Your historical data won't be deleted <br />
+        Your medications data won't be deleted <br />
         Unless you ask us for it
+        <Button
+          onClick={() => (window.location = "mailto:mickael.jegat@gmail.com")}
+        >
+          Contact Me
+        </Button>
       </div>
     </div>
   );
 }
 
-export default Settings;
+export default SettingsPage;

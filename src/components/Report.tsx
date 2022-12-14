@@ -7,7 +7,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { getAll } from "../fetch";
-import { useNavigate } from "react-router-dom";
+import ReturnButton from "./ReturnButton";
+import SettingsButton from "./SettingsButton";
 
 interface Medications {
   medication1: string;
@@ -78,13 +79,16 @@ function Report() {
 
   // Delta a conserver pour faire une semaine
   const now = Date.now();
+  const currentWeek = now - 604799000;
   console.log(now);
-  console.log(now - 604799000);
+  console.log(currentWeek);
   console.log(convertTimestamps(now));
-  console.log(convertTimestamps(now - 604799000));
+  console.log(convertTimestamps(currentWeek));
 
   return (
     <div>
+      <ReturnButton />
+      <SettingsButton />
       <div className={"card"}>Report</div>
       <div>
         <Table className={"table table-fixed inline-table border border-black"}>
