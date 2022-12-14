@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 const PATH = "http://127.0.0.1:3000";
 
 function isAuth(): HeadersInit | undefined {
@@ -21,18 +19,7 @@ function isAuth(): HeadersInit | undefined {
 
 // -------------------- USERS ----------------------------
 
-export async function signin(username: string, password: string) {
-  const promise = fetch(PATH + "/users/signin", {
-    method: "POST",
-    headers: isAuth(),
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  });
-  return await promise.then(async (res) => await res.json());
-}
-
+// Create
 export async function signup(
   email: string,
   username: string,
@@ -50,6 +37,20 @@ export async function signup(
   return await promise.then(async (res) => await res.json());
 }
 
+// Read
+export async function signin(username: string, password: string) {
+  const promise = fetch(PATH + "/users/signin", {
+    method: "POST",
+    headers: isAuth(),
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  });
+  return await promise.then(async (res) => await res.json());
+}
+
+// Read
 export async function getInfo(username: string) {
   const promise = fetch(`${PATH}/users/settings/${username}`, {
     method: "GET",
@@ -59,11 +60,23 @@ export async function getInfo(username: string) {
   return await promise.then(async (res) => await res.json());
 }
 
+// Update
 export async function putInfo(infos: object, username: string) {
   const promise = fetch(`${PATH}/users/settings/${username}`, {
     method: "PUT",
     headers: isAuth(),
     body: JSON.stringify({ ...infos }),
+  });
+
+  return await promise.then(async (res) => await res.json());
+}
+
+// Delete
+export async function deleteUser(username: string) {
+  const promise = fetch(`${PATH}/users/settings/${username}`, {
+    method: "DELETE",
+    headers: isAuth(),
+    // body: JSON.stringify({ id }),
   });
 
   return await promise.then(async (res) => await res.json());
@@ -86,11 +99,12 @@ export async function getAll(username: string) {
   });
   //   await promise.then(async (res: Response) => {
   //     if (res.status === 403) {
-  //       location.href = "/403";
+  //       location.href = "http://localhost:5173/403";
   //     } else {
   //       return await res.json();
   //     }
   //   });
   // }
+
   return await promise.then(async (res) => await res.json());
 }

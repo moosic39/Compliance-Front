@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-import { getInfo, putInfo } from "../fetch.js";
+import { getInfo, putInfo, deleteUser } from "../fetch.js";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
   interface InputProps {
-    // username: string;
     firstname?: string;
     lastname?: string;
     email?: string;
@@ -16,14 +16,16 @@ function Settings() {
   }
 
   interface Init {
+    _id?: string;
     username: string;
     firstname: string;
     lastname: string;
     email: string;
-    hash: string;
-    token: string;
+    hash?: string;
+    token?: string;
     doctor: string;
     doctoremail: string;
+    __v?: string;
   }
 
   const input = {
@@ -55,34 +57,18 @@ function Settings() {
       });
   }, []);
 
-  // const allInput: string[] = Object.keys(input);
-  // const allInputInit = allInput.map(() => "");
   const [values, setValues] = useState<InputProps>(input);
 
   const dbInput: string[] = Object.keys(values);
   const dbInit = dbInput.map((e) => e);
   const [init, setInit] = useState<Init>(dbInit);
+  const [sure, setSure] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  // console.log("db", init);
-  // console.log("val", values);
-
-  // const element = Object.entries(values).map((e, i) => (
-  //   <div key={i}>
-  //     <label htmlFor={e[1]}>
-  //       <TextField
-  //         id="outlined-basic"
-  //         label={e[0]}
-  //         variant="outlined"
-  //         onChange={(poulet) => {
-  //           handleInputChange(poulet);
-  //         }}
-  //         defaultValue={e[1]}
-  //         size={"small"}
-  //         className={"center"}
-  //       />
-  //     </label>
-  //   </div>
-  // ));
+  delete init._id;
+  delete init.__v;
+  delete init.hash;
+  delete init.token;
 
   const dbElement = Object.entries(init).map((e, i) => (
     <div key={i}>
@@ -118,19 +104,26 @@ function Settings() {
   ));
 
   function sendData() {
-    // let values[_id]='';
-    // console.log(init._id, { ...values });
-    // setValues({ ...values }, ([_id] = init._id));
-    // Object.defineProperty(values, "username", {
-    //   value: init.username,
-    //   writable: true,
-    // });
-
     putInfo(values, username)
       .then((data) => {
         console.log(data);
+        navigate(0);
       })
       .catch((err) => console.log({ err }));
+  }
+
+  function del() {
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+
+    deleteUser(username)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.error({ err });
+      });
   }
 
   return (
@@ -165,30 +158,37 @@ function Settings() {
       </Box>
       <Button
         variant="contained"
-        onClick={
-          sendData
-          //   () => {
-          //   console.log(values);
-          //
-          //   // if (Object.values(values)) {
-          //   //   const toSend = [Object.keys(values), Object.values(values)];
-          //   //   console.log({ ...toSend });
-          //   // }
-          //   // putInfo({ ...values }, username)
-          //   //   .then((data) => {
-          //   //     console.log(data);
-          //   //   })
-          //   //   .catch((error) => console.error(error));
-          // }
-        }
+        onClick={sendData}
         endIcon={<SaveIcon />}
         size={"small"}
       >
         Save modifications
       </Button>
-      <Button variant={"contained"} color={"error"} size={"small"}>
+
+      <Button
+        variant={"contained"}
+        color={"error"}
+        size={"small"}
+        onClick={() => {
+          setSure(true);
+        }}
+      >
         Delete All
       </Button>
+      <div className={sure ? "" : "hidden"}>
+        Are you sure? <button onClick={del}>Yes</button>
+        <button
+          onClick={() => {
+            setSure(false);
+          }}
+        >
+          No
+        </button>
+      </div>
+      <div className={sure ? "" : "hidden"}>
+        Your historical data won't be deleted <br />
+        Unless you ask us for it
+      </div>
     </div>
   );
 }
