@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { getAll } from "../fetch";
-import ReturnButton from "./ReturnButton";
+import HomeButton from "./HomeButton";
 import SettingsButton from "./SettingsButton";
 
 interface Medications {
@@ -87,7 +87,7 @@ function Report() {
 
   return (
     <div>
-      <ReturnButton />
+      <HomeButton />
       <SettingsButton />
       <div className={"card"}>Report</div>
       <div>

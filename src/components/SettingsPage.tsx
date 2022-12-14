@@ -4,8 +4,7 @@ import { Button, TextField } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { getInfo, putInfo, deleteUser } from "../fetch.js";
 import { useNavigate } from "react-router-dom";
-import ReturnButton from "./ReturnButton";
-import SettingsButton from "./SettingsButton";
+import HomeButton from "./HomeButton";
 
 function SettingsPage() {
   interface InputProps {
@@ -136,7 +135,7 @@ function SettingsPage() {
 
   return (
     <div>
-      <ReturnButton />
+      <HomeButton />
 
       <h2>Settings</h2>
       <table>

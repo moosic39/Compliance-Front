@@ -7,7 +7,9 @@ import Button from "@mui/material/Button";
 import { sendList } from "../fetch";
 import { useNavigate } from "react-router-dom";
 import SettingsButton from "./SettingsButton";
-import ReturnButton from "./ReturnButton";
+import HomeButton from "./HomeButton";
+import LogoutButton from "./LogoutButton";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 
 function Home() {
   const [count, setCount] = useState(1);
@@ -81,13 +83,15 @@ function Home() {
 
   return (
     <div className={"container"}>
-      <ReturnButton />
+      <LogoutButton />
+      <HomeButton />
       <SettingsButton />
 
       {element}
 
       <Alarm />
       <Button
+        endIcon={<SendRoundedIcon />}
         onClick={() => {
           // send the list
           delete values[0];
