@@ -10,6 +10,7 @@ import SettingsButton from "./SettingsButton";
 import HomeButton from "./HomeButton";
 import LogoutButton from "./LogoutButton";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+import AskMdButton from "./AskMDButton";
 
 function HomePage() {
   const [count, setCount] = useState<number>(1);
@@ -129,7 +130,7 @@ function HomePage() {
         >
           Data has been <br /> sent successfully
         </div>
-        <button>Ask M.D.</button>
+        <AskMdButton />
       </div>
     </div>
   );

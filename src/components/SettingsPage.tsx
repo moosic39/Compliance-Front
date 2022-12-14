@@ -196,10 +196,10 @@ function SettingsPage() {
       >
         Delete All
       </Button>
-      <div className={!isReady ? "hidden" : "text-red-600"}>
+      <div className={!isReady ? "invisible" : "text-red-600"}>
         Enter your password
       </div>
-      <div className={sure ? "" : "hidden"}>
+      <div className={sure ? "" : "invisible"}>
         Are you sure? <button onClick={del}>Yes</button>
         <button
           onClick={() => {
@@ -209,7 +209,7 @@ function SettingsPage() {
           No
         </button>
       </div>
-      <div className={sure ? "" : "hidden"}>
+      <div className={sure ? "" : "invisible"}>
         Your medications data won't be deleted <br />
         Unless you ask us for it
         <Button
