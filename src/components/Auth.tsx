@@ -61,7 +61,8 @@ function Auth() {
         }
         if (data.username) {
           window.localStorage.setItem("token", data.token);
-          navigate(`/user/${data.username}`);
+          window.localStorage.setItem("username", data.username);
+          navigate(`/loggin-successfull`);
         }
       })
       .catch((err) => {
@@ -139,7 +140,7 @@ function Auth() {
                 }
               />
             </FormControl>
-            <div className={isWrong ? "text-red-600" : "hidden"}>
+            <div className={isWrong ? "text-red-600" : "invisible"}>
               Invalid username or password
             </div>
           </div>

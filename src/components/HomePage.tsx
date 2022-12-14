@@ -11,8 +11,9 @@ import HomeButton from "./HomeButton";
 import LogoutButton from "./LogoutButton";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
 
-function Home() {
-  const [count, setCount] = useState(1);
+function HomePage() {
+  const [count, setCount] = useState<number>(1);
+  const [isPrompt, setIsPrompt] = useState<boolean>(false);
 
   const list: number[] = [];
   const allMedic: string[] = [];
@@ -23,7 +24,7 @@ function Home() {
     allMedic.push(`medication${i}`);
   }
 
-  // init values hooks\
+  // init values hooks
   const allMedicInit = allMedic.map((e: string) => "");
 
   // handle click fct
@@ -82,10 +83,14 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className={"container"}>
-      <LogoutButton />
-      <HomeButton />
-      <SettingsButton />
+    <div className={""}>
+      <div className={"rs-flex-box-grid-end"}>
+        <LogoutButton />
+      </div>
+      <div className={"rs-flex-box-grid-space-between"}>
+        <HomeButton />
+        <SettingsButton />
+      </div>
 
       {element}
 
@@ -98,7 +103,13 @@ function Home() {
           if (Object.keys(values).length > 0) {
             sendList({ ...values }, username)
               .then((data) => {
-                console.log(data);
+                console.log(data.message);
+                if (data.status === 201) {
+                  setIsPrompt(true);
+                  setTimeout(() => {
+                    setIsPrompt(false);
+                  }, 5000);
+                }
               })
               .catch((err) => {
                 console.error(err);
@@ -111,14 +122,17 @@ function Home() {
         SEND
       </Button>
 
-      <div>
-        <button onClick={() => navigate(`/report/${username}`)}>
-          Weekly Report
-        </button>
+      <div className={"flex"}>
+        <button onClick={() => navigate(`/report/${username}`)}>Report</button>
+        <div
+          className={isPrompt ? "text-emerald-500 font-semibold" : "invisible"}
+        >
+          Data has been <br /> sent successfully
+        </div>
         <button>Ask M.D.</button>
       </div>
     </div>
   );
 }
 
-export default Home;
+export default HomePage;

@@ -74,7 +74,11 @@ function Alarm() {
           onChange={(e) => setAlarm(e.target.value)}
         />
       </div>
-      <div className={isNotif && isActive ? "text-amber-600" : "invisible"}>
+      <div
+        className={
+          isNotif && isActive ? "text-amber-600 font-bold" : "invisible"
+        }
+      >
         Please send your data
       </div>
       <Fab onClick={toggleAlarm} color={"primary"} variant={"extended"}>

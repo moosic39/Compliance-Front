@@ -1,6 +1,3 @@
-import { useHref } from "react-router-dom";
-import logoutButton from "./components/LogoutButton";
-
 const PATH = "http://127.0.0.1:3000";
 
 function isAuth(): HeadersInit | undefined {
@@ -21,14 +18,6 @@ function isAuth(): HeadersInit | undefined {
 }
 
 // -------------------- USERS ----------------------------
-function redirect(response: Response) {
-  console.log(typeof response);
-  if (response.status === 401) {
-    console.log("youhou");
-    window.location.replace(`${PATH}/403`);
-  }
-  return response;
-}
 
 // Create
 export async function signup(
@@ -109,14 +98,6 @@ export async function getAll(username: string) {
     method: "GET",
     headers: isAuth(),
   });
-  //   await promise.then(async (res: Response) => {
-  //     if (res.status === 403) {
-  //       location.href = "http://localhost:5173/403";
-  //     } else {
-  //       return await res.json();
-  //     }
-  //   });
-  // }
 
   return await promise.then(async (res) => await res.json());
 }
