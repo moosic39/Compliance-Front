@@ -1,3 +1,6 @@
+import { useHref } from "react-router-dom";
+import logoutButton from "./components/LogoutButton";
+
 const PATH = "http://127.0.0.1:3000";
 
 function isAuth(): HeadersInit | undefined {
@@ -18,6 +21,14 @@ function isAuth(): HeadersInit | undefined {
 }
 
 // -------------------- USERS ----------------------------
+function redirect(response: Response) {
+  console.log(typeof response);
+  if (response.status === 401) {
+    console.log("youhou");
+    window.location.replace(`${PATH}/403`);
+  }
+  return response;
+}
 
 // Create
 export async function signup(
@@ -34,6 +45,7 @@ export async function signup(
       password,
     }),
   });
+
   return await promise.then(async (res) => await res.json());
 }
 
@@ -47,6 +59,7 @@ export async function signin(username: string, password: string) {
       password,
     }),
   });
+
   return await promise.then(async (res) => await res.json());
 }
 
@@ -76,7 +89,6 @@ export async function deleteUser(username: string) {
   const promise = fetch(`${PATH}/users/settings/${username}`, {
     method: "DELETE",
     headers: isAuth(),
-    // body: JSON.stringify({ id }),
   });
 
   return await promise.then(async (res) => await res.json());

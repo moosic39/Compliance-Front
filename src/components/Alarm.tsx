@@ -2,14 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import bip from "../assets/mixkit-melodical-flute-music-notification-2310.wav";
 import Notification from "./Notification";
-import Button from "@mui/material/Button";
+
 import { Fab } from "@mui/material";
 
 const sound = new Audio(bip);
 
-// interface isNotifProps {
-//   isNotif: boolean;
-// }
 export function renderTime() {
   const [date, time] = new Date().toLocaleString("fr-FR").split(" ");
   const [hours, minutes, secondes] = time.split(":");
@@ -42,6 +39,7 @@ function Alarm() {
     console.log("stop");
     setIsActive(false);
     setIsNotif(false);
+
     // openNotif = false;
   }
 
@@ -76,9 +74,13 @@ function Alarm() {
           onChange={(e) => setAlarm(e.target.value)}
         />
       </div>
+      <div className={isNotif && isActive ? "text-amber-600" : "invisible"}>
+        Please send your data
+      </div>
       <Fab onClick={toggleAlarm} color={"primary"} variant={"extended"}>
         {isActive ? "Stop" : "Start"}
       </Fab>
+
       <Notification isNotif={isNotif} />
     </div>
   );

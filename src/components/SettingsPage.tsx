@@ -108,6 +108,9 @@ function SettingsPage() {
   function sendData() {
     if (values.password === "") {
       setIsReady(true);
+      setTimeout(() => {
+        setIsReady(false);
+      }, 3000);
     } else {
       setIsReady(false);
       putInfo(values, username)
@@ -193,7 +196,9 @@ function SettingsPage() {
       >
         Delete All
       </Button>
-      <div className={!isReady ? "hidden" : ""}>Enter your password</div>
+      <div className={!isReady ? "hidden" : "text-red-600"}>
+        Enter your password
+      </div>
       <div className={sure ? "" : "hidden"}>
         Are you sure? <button onClick={del}>Yes</button>
         <button
