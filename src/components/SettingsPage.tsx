@@ -5,6 +5,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { getInfo, putInfo, deleteUser } from "../fetch.js";
 import { useNavigate } from "react-router-dom";
 import HomeButton from "./HomeButton";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
 function SettingsPage() {
 	interface InputProps {
@@ -183,9 +184,9 @@ function SettingsPage() {
 				endIcon={<SaveIcon />}
 				size={"small"}
 			>
-				Save modifications
+				Save
 			</Button>
-
+			<span className="px-2"></span>
 			<Button
 				variant={"contained"}
 				color={"error"}
@@ -193,8 +194,9 @@ function SettingsPage() {
 				onClick={() => {
 					setSure(true);
 				}}
+				endIcon={<DeleteForeverRoundedIcon />}
 			>
-				Delete All
+				Delete
 			</Button>
 			<div className={!isReady ? "invisible" : "text-red-600"}>
 				Enter your password

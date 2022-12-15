@@ -14,35 +14,35 @@ import Welcome from "./components/Welcome";
 import LogginSuccessfull from "./components/LogginSuccessfull";
 
 function App() {
-  return (
-    <div className="App p-20 h-full rounded-xl bg-gradient-to-t from-sky-50 to-sky-200 dark:bg-gradient-to-b dark:from-sky-900 dark:to-sky-700}">
-      <div className={"card"}>
-        <h2 className="font-bold underline text-stone-700 dark:text-stone-300">
-          Compliance
-        </h2>
-      </div>
+	return (
+		<div className="App p-20 h-full rounded-xl bg-gradient-to-t from-sky-50 to-sky-200 dark:bg-gradient-to-b dark:from-sky-900 dark:to-sky-700}">
+			<div className={"card"}>
+				<h2 className="font-bold underline text-stone-700 dark:text-stone-300">
+					Compliance
+				</h2>
+			</div>
 
-      <Routes>
-        <Route path={"/"} element={<Welcome />} />
-        <Route element={<PrivateRoutes />}>
-          <Route path={"/loggin-successfull"} element={<LogginSuccessfull />} />
-          <Route path={"/user/:id"} element={<HomePage />} />
-          <Route path={"/report/:id"} element={<Report />} />
-          <Route path={"/settings/:id"} element={<SettingsPage />} />
-        </Route>
-        <Route path={"/signup"} element={<SignUp />} />
-        <Route path={"/signin"} element={<Auth />} />
+			<Routes>
+				<Route path={"/"} element={<Welcome />} />
+				<Route element={<PrivateRoutes />}>
+					<Route path={"/loggin-successfull"} element={<LogginSuccessfull />} />
+					<Route path={"/user/:id"} element={<HomePage />} />
+					<Route path={"/report/:id"} element={<Report />} />
+					<Route path={"/settings/:id"} element={<SettingsPage />} />
+				</Route>
+				<Route path={"/signup"} element={<SignUp />} />
+				<Route path={"/signin"} element={<Auth />} />
 
-        {/* <Route path={"/users"} element={<MrTea />} /> */}
-        <Route path={"/403"} element={<NotAllowed />} />
-        <Route path={"/*"} element={<NotFound />} />
-      </Routes>
-      <div className="card"></div>
-      <footer>
-        <p className="read-the-docs text-xs">© 2022 Mickael JEGAT</p>
-      </footer>
-    </div>
-  );
+				{/* <Route path={"/users"} element={<MrTea />} /> */}
+				<Route path={"/403"} element={<NotAllowed />} />
+				<Route path={"/*"} element={<NotFound />} />
+			</Routes>
+			<div className="card"></div>
+			<footer>
+				<p className="read-the-docs text-xs">© 2022 Mickael JEGAT</p>
+			</footer>
+		</div>
+	);
 }
 
 export default App;
