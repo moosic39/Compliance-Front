@@ -1,37 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import "./App.css";
+import SignUp from "./components/SignUp";
+import HomePage from "./components/HomePage";
+import { Routes, Route } from "react-router-dom";
+
+import Auth from "./components/Auth";
+import Report from "./components/Report";
+import NotFound from "./components/NotFound";
+// import MrTea from "./components/MrTea";
+import NotAllowed from "./components/NotAllowed";
+import PrivateRoutes from "./components/PrivatesRoutes";
+import SettingsPage from "./components/SettingsPage";
+import Welcome from "./components/Welcome";
+import LogginSuccessfull from "./components/LogginSuccessfull";
 
 function App() {
-  const [count, setCount] = useState(0)
+	return (
+		<div className="App p-20 h-full rounded-xl bg-gradient-to-t from-sky-50 to-sky-200 dark:bg-gradient-to-b dark:from-sky-900 dark:to-sky-700}">
+			<div className={"card"}>
+				<h2 className="font-bold underline text-stone-700 dark:text-stone-300">
+					Compliance
+				</h2>
+			</div>
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+			<Routes>
+				<Route path={"/"} element={<Welcome />} />
+				<Route element={<PrivateRoutes />}>
+					<Route path={"/loggin-successfull"} element={<LogginSuccessfull />} />
+					<Route path={"/user/:id"} element={<HomePage />} />
+					<Route path={"/report/:id"} element={<Report />} />
+					<Route path={"/settings/:id"} element={<SettingsPage />} />
+				</Route>
+				<Route path={"/signup"} element={<SignUp />} />
+				<Route path={"/signin"} element={<Auth />} />
+
+				{/* <Route path={"/users"} element={<MrTea />} /> */}
+				<Route path={"/403"} element={<NotAllowed />} />
+				<Route path={"/*"} element={<NotFound />} />
+			</Routes>
+			<div className="card"></div>
+			<footer>
+				<p className="read-the-docs text-xs">© 2022 Mickael JEGAT</p>
+			</footer>
+		</div>
+	);
 }
 
-export default App
+export default App;
