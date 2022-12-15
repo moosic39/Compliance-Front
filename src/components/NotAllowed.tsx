@@ -9,7 +9,7 @@ export default function NotAllowed() {
 	return (
 		<div>
 			403 error: You are not allowed <br />
-			you are redirect to signin page
+			You are redirect to signin page
 		</div>
 	);
 }
